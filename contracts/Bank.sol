@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.13;
 import "@openzeppelin/contracts/interfaces/IERC20.sol";
+import "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
 contract Bank {
     mapping(address => uint) public deposit;
     address public  immutable token;
@@ -18,5 +19,12 @@ contract Bank {
         amount = amount * 10 ** 18;
         require( IERC20(token).transferFrom(msg.sender,address(this),amount),"transfrom error");
         deposit[msg.sender] += amount;
+    }
+
+    //取款 external 内部外部都可调用
+    function withDraw(uint amount) external {
+      // require(IERC20(token).transfer(msg.sender,amount),"transfer error");
+       SafeERC20.safeTransfer(IERC20(token),msg.sender,amount);
+       deposit[msg.sender] += amount;
     }
 }
