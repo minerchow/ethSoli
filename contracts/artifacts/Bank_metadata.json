@@ -31,6 +31,24 @@
 				"inputs": [
 					{
 						"internalType": "address",
+						"name": "to",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "amount",
+						"type": "uint256"
+					}
+				],
+				"name": "bankTransfer",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
 						"name": "",
 						"type": "address"
 					}
@@ -198,11 +216,11 @@
 			]
 		},
 		"contracts/Bank.sol": {
-			"keccak256": "0xb3067d8749d8e1be354d3f8037deb7110ad9c810687fc1ba2aba9ed76c61f64d",
+			"keccak256": "0xfdadcc974198e6da35cf4257e394f8c28574c16d789b64e023538f3ef639531a",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://347aebd4d9922939badb18fd0dbff19c108c95550e2419d4239f9f12425b1d13",
-				"dweb:/ipfs/QmaijTbqehrHgvxW7vv97pniCYiwZUpCJkriVKvnCU6GqY"
+				"bzz-raw://66feef814ab74265816fd806d51d122f0605a320abddd99fea65b5b92b3092dc",
+				"dweb:/ipfs/QmX2q1nS2bVTJSW8LXkZVL3e54q4MHB9qzq6R4JMaaReuM"
 			]
 		}
 	},

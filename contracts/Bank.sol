@@ -9,6 +9,13 @@ contract Bank {
         token = _token;
     }
 
+    modifier requireBalance(uint amount){
+        amount = amount * 10 ** 18;
+        uint balance = deposit[msg.sender];
+        require(amount<= balance,"the amount more than balance  ");
+        _;
+    }
+
     //查询余额 view表示只能查看区块链上状态，不能修改  pure 查看修改都不能
     function myBalance() public view returns(uint){
         return deposit[msg.sender]/(10 ** 18);
@@ -21,10 +28,20 @@ contract Bank {
         deposit[msg.sender] += amount;
     }
 
-    //取款 external 内部外部都可调用
-    function withDraw(uint amount) external {
+    //取款 external 外部可调用
+    function withDraw(uint amount) external requireBalance(amount){
+       amount = amount * 10 ** 18;
+     //  require(amount<=deposit[msg.sender],"the amount more than balance  ");
       // require(IERC20(token).transfer(msg.sender,amount),"transfer error");
        SafeERC20.safeTransfer(IERC20(token),msg.sender,amount);
-       deposit[msg.sender] += amount;
+       deposit[msg.sender] -= amount;
+    }
+
+    //转帐
+    function bankTransfer(address to,uint amount) public requireBalance(amount){
+        amount = amount * 10 ** 18;
+       // require(amount<=deposit[msg.sender],"the amount more than balance  ");
+        deposit[msg.sender] -= amount;
+        deposit[to] += amount;
     }
 }
