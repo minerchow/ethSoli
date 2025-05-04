@@ -7,6 +7,7 @@ contract Bank {
     address public  immutable token;
     constructor(address _token){
         token = _token;
+        
     }
 
     modifier requireBalance(uint amount){
@@ -28,11 +29,11 @@ contract Bank {
         deposit[msg.sender] += amount;
     }
 
-    //取款 external 外部可调用
-    function withDraw(uint amount) external requireBalance(amount){
-       amount = amount * 10 ** 18;
-     //  require(amount<=deposit[msg.sender],"the amount more than balance  ");
+    //取款 external 内部外部都可调用
+    function withDraw(uint amount) external {
+        amount = amount * 10 ** 18;
       // require(IERC20(token).transfer(msg.sender,amount),"transfer error");
+       require(amount <= deposit[msg.sender],"amount error");
        SafeERC20.safeTransfer(IERC20(token),msg.sender,amount);
        deposit[msg.sender] -= amount;
     }
